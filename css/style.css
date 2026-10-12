@@ -1,0 +1,256 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #faf9f6;
+    color: #302e2a;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: min(1120px, 92%);
+    margin: 0 auto;
+}
+
+.site-header {
+    background: #fff;
+    border-bottom: 1px solid #e8e5df;
+    padding: 25px 0;
+}
+
+.site-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.brand {
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: 21px;
+    letter-spacing: 2px;
+}
+
+.header-label {
+    margin: 0;
+    color: #8a8276;
+    font-size: 13px;
+}
+
+.page-heading {
+    padding: 65px 0 40px;
+}
+
+.eyebrow {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #9a8268;
+}
+
+h1, h2 {
+    font-family: Georgia, serif;
+    font-weight: normal;
+}
+
+h1 {
+    font-size: 43px;
+    margin: 14px 0;
+}
+
+.description {
+    color: #777168;
+    line-height: 1.7;
+}
+
+.projects {
+    background: #fff;
+    border: 1px solid #ebe7e1;
+    border-radius: 8px;
+    margin-bottom: 60px;
+    overflow: hidden;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 28px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.count {
+    font-size: 13px;
+    color: #8a8276;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    background: #f7f5f1;
+    color: #7e7569;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+th, td {
+    padding: 18px 22px;
+    border-top: 1px solid #eeeae5;
+}
+
+td {
+    font-size: 14px;
+}
+
+.status {
+    display: inline-block;
+    padding: 7px 12px;
+    background: #eee9df;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #6d5b45;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 55px 20px;
+    color: #8a8276;
+}
+
+@media (max-width: 650px) {
+    .site-header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    h1 {
+        font-size: 34px;
+    }
+
+    .page-heading {
+        padding-top: 40px;
+    }
+}
+
+/* Administratora pieslēgšanās */
+
+.login-container {
+    width: min(440px, 92%);
+    margin: 85px auto;
+}
+
+.login-card {
+    background: #fff;
+    border: 1px solid #ebe7e1;
+    border-radius: 8px;
+    padding: 38px;
+}
+
+.login-card h1 {
+    font-size: 36px;
+}
+
+.login-card .description {
+    margin-bottom: 30px;
+}
+
+.login-card form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-card label {
+    font-size: 13px;
+    margin-bottom: 9px;
+    color: #6d6255;
+}
+
+.login-card input {
+    padding: 13px 14px;
+    border: 1px solid #dcd6ce;
+    border-radius: 5px;
+    margin-bottom: 22px;
+    font-size: 15px;
+}
+
+.login-card input:focus {
+    outline: 2px solid #bba58a;
+    outline-offset: 1px;
+}
+
+.login-card button {
+    background: #77634c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 14px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.login-card button:hover {
+    background: #5e4d3b;
+}
+
+.login-error {
+    padding: 12px;
+    background: #fff0ed;
+    color: #a13b2b;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+
+@media (max-width: 500px) {
+    .login-container {
+        margin: 40px auto;
+    }
+
+    .login-card {
+        padding: 25px;
+    }
+}
+
+/* Administrācijas paneļa galvene */
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.logout-button {
+    color: #77634c;
+    text-decoration: none;
+    font-size: 13px;
+    border: 1px solid #dcd6ce;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: 0.2s;
+}
+
+.logout-button:hover {
+    background: #f7f5f1;
+}
+
+@media (max-width: 650px) {
+    .header-actions {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+}
