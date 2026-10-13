@@ -1,11 +1,13 @@
 
 <?php
 
-// Pārbauda, vai administrators ir pieslēdzies
+// Administratora autorizācijas pārbaude
 require_once __DIR__ . '/includes/auth.php';
 
+// Savienojums ar MySQL datubāzi
 require_once __DIR__ . '/config/database.php';
 
+// Iegūst visus grāmatu pieteikumus
 $stmt = $pdo->query("
     SELECT
         applications.id,
@@ -48,6 +50,7 @@ function e($value) {
 
         <div class="header-actions">
             <span class="header-label">Administrācijas panelis</span>
+
             <a href="logout.php" class="logout-button">
                 Izrakstīties
             </a>
@@ -103,7 +106,12 @@ function e($value) {
                         <?php foreach ($applications as $application): ?>
                             <tr>
                                 <td>
-                                    <?= e($application['book_title']) ?>
+                                    <a
+                                        href="pieteikums.php?id=<?= (int) $application['id'] ?>"
+                                        class="book-link"
+                                    >
+                                        <?= e($application['book_title']) ?>
+                                    </a>
                                 </td>
 
                                 <td>

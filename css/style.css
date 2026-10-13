@@ -254,3 +254,181 @@ td {
         gap: 12px;
     }
 }
+
+/* Pieteikuma detalizētā lapa */
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 25px;
+    color: #77634c;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+    margin-bottom: 65px;
+}
+
+.detail-card {
+    background: #fff;
+    border: 1px solid #ebe7e1;
+    border-radius: 8px;
+    padding: 30px;
+}
+
+.detail-card h2 {
+    font-size: 25px;
+    margin: 0 0 25px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    border-top: 1px solid #eeeae5;
+    padding: 16px 0;
+    font-size: 14px;
+}
+
+.detail-row span {
+    color: #8a8276;
+}
+
+.detail-row strong {
+    font-weight: 500;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 750px) {
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* Grāmatu nosaukumu saites */
+
+.book-link {
+    color: #77634c;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.book-link:hover {
+    color: #4e3d2b;
+    text-decoration: underline;
+}
+
+.book-link:focus-visible {
+    outline: 2px solid #77634c;
+    outline-offset: 3px;
+}
+
+/* Projekta statusa maiņa */
+
+.status-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.status-form label {
+    color: #6d6255;
+    font-size: 14px;
+}
+
+.status-form select {
+    padding: 13px;
+    border: 1px solid #dcd6ce;
+    border-radius: 5px;
+    background: white;
+    font-size: 15px;
+    color: #302e2a;
+}
+
+.status-form button {
+    background: #77634c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 14px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.status-form button:hover {
+    background: #5e4d3b;
+}
+
+.success-message {
+    background: #edf5eb;
+    border: 1px solid #d1e5ce;
+    color: #356b38;
+    padding: 15px 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+/* Piezīmju forma */
+
+.status-form textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #dcd6ce;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    resize: vertical;
+    color: #302e2a;
+}
+
+.status-form textarea:focus {
+    outline: 2px solid #bba58a;
+    outline-offset: 1px;
+}
+
+/* Piezīmju vēsture */
+
+.notes-section {
+    margin-bottom: 65px;
+}
+
+.note-item {
+    padding: 20px 0;
+    border-top: 1px solid #eeeae5;
+}
+
+.note-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 13px;
+}
+
+.note-meta strong {
+    color: #77634c;
+}
+
+.note-meta span {
+    color: #8a8276;
+}
+
+.note-item p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.8;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
