@@ -99,7 +99,7 @@ if (!$application) {
     exit('Pieteikums nav atrasts.');
 }
 
-// Visas pieteikuma piezīmes
+// Pieteikuma piezīmes
 $notesStmt = $pdo->prepare("
     SELECT
         notes.id,
@@ -116,8 +116,9 @@ $notesStmt = $pdo->prepare("
 $notesStmt->execute([$id]);
 $notes = $notesStmt->fetchAll();
 
-$saved = isset($_GET['saved']) && $_GET['saved'] === '1';
-$noteSaved = isset($_GET['note_saved']) && $_GET['note_saved'] === '1';
+$saved = ($_GET['saved'] ?? '') === '1';
+$noteSaved = ($_GET['note_saved'] ?? '') === '1';
+$manuscriptSaved = ($_GET['manuscript_saved'] ?? '') === '1';
 
 ?>
 <!DOCTYPE html>
@@ -125,7 +126,9 @@ $noteSaved = isset($_GET['note_saved']) && $_GET['note_saved'] === '1';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title><?= e($application['book_title']) ?> | Iedvesmas grāmata</title>
+
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -136,7 +139,10 @@ $noteSaved = isset($_GET['note_saved']) && $_GET['note_saved'] === '1';
 
         <div class="header-actions">
             <span class="header-label">Administrācijas panelis</span>
-            <a href="logout.php" class="logout-button">Izrakstīties</a>
+
+            <a href="logout.php" class="logout-button">
+                Izrakstīties
+            </a>
         </div>
     </div>
 </header>
@@ -149,6 +155,7 @@ $noteSaved = isset($_GET['note_saved']) && $_GET['note_saved'] === '1';
         </a>
 
         <p class="eyebrow">GRĀMATAS PIETEIKUMS</p>
+
         <h1><?= e($application['book_title']) ?></h1>
 
         <span class="status">
@@ -165,6 +172,12 @@ $noteSaved = isset($_GET['note_saved']) && $_GET['note_saved'] === '1';
     <?php if ($noteSaved): ?>
         <div class="success-message">
             Piezīme veiksmīgi pievienota!
+        </div>
+    <?php endif; ?>
+
+    <?php if ($manuscriptSaved): ?>
+        <div class="success-message">
+            Manuskripts veiksmīgi pievienots!
         </div>
     <?php endif; ?>
 
@@ -194,6 +207,7 @@ $noteSaved = isset($_GET['note_saved']) && $_GET['note_saved'] === '1';
 
             <div class="detail-row">
                 <span>Manuskripts</span>
+
                 <strong>
                     <?= $application['manuscript_path']
                         ? 'Pievienots'
@@ -207,8 +221,12 @@ $noteSaved = isset($_GET['note_saved']) && $_GET['note_saved'] === '1';
 
             <div class="detail-row">
                 <span>Vārds, uzvārds</span>
+
                 <strong>
-                    <?= e($application['first_name'] . ' ' . $application['last_name']) ?>
+                    <?= e(
+                        $application['first_name'] . ' ' .
+                        $application['last_name']
+                    ) ?>
                 </strong>
             </div>
 
@@ -219,6 +237,7 @@ $noteSaved = isset($_GET['note_saved']) && $_GET['note_saved'] === '1';
 
             <div class="detail-row">
                 <span>Tālrunis</span>
+
                 <strong>
                     <?= e($application['phone'] ?: 'Nav norādīts') ?>
                 </strong>
@@ -256,8 +275,71 @@ $noteSaved = isset($_GET['note_saved']) && $_GET['note_saved'] === '1';
                     <?php endforeach; ?>
                 </select>
 
-                <button type="submit">Saglabāt statusu</button>
+                <button type="submit">
+                    Saglabāt statusu
+                </button>
             </form>
+        </section>
+
+        <section class="detail-card">
+            <h2>Manuskripts</h2>
+
+            <?php if ($application['manuscript_path']): ?>
+
+                <p class="description">
+                    Šim pieteikumam manuskripts ir pievienots.
+                </p>
+
+                <a
+                    href="lejupieladet-manuskriptu.php?id=<?= (int) $id ?>"
+                    class="download-button"
+                >
+                    Lejupielādēt manuskriptu
+                </a>
+
+            <?php else: ?>
+
+                <p class="description">
+                    Pievienojiet manuskriptu PDF vai DOCX formātā.
+                    Maksimālais faila izmērs — 10 MB.
+                </p>
+
+                <form
+                    method="POST"
+                    action="augsupieladet-manuskriptu.php"
+                    enctype="multipart/form-data"
+                    class="status-form"
+                >
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="<?= e($_SESSION['csrf_token']) ?>"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="application_id"
+                        value="<?= (int) $id ?>"
+                    >
+
+                    <label for="manuscript">
+                        Izvēlieties manuskripta failu
+                    </label>
+
+                    <input
+                        type="file"
+                        id="manuscript"
+                        name="manuscript"
+                        accept=".pdf,.docx"
+                        required
+                    >
+
+                    <button type="submit">
+                        Pievienot manuskriptu
+                    </button>
+                </form>
+
+            <?php endif; ?>
         </section>
 
         <section class="detail-card">
@@ -291,7 +373,9 @@ $noteSaved = isset($_GET['note_saved']) && $_GET['note_saved'] === '1';
                     required
                 ></textarea>
 
-                <button type="submit">Pievienot piezīmi</button>
+                <button type="submit">
+                    Pievienot piezīmi
+                </button>
             </form>
         </section>
 
@@ -301,22 +385,36 @@ $noteSaved = isset($_GET['note_saved']) && $_GET['note_saved'] === '1';
         <h2>Piezīmju vēsture</h2>
 
         <?php if (empty($notes)): ?>
+
             <p class="description">
                 Šim pieteikumam vēl nav pievienotu piezīmju.
             </p>
+
         <?php else: ?>
+
             <?php foreach ($notes as $note): ?>
+
                 <article class="note-item">
                     <div class="note-meta">
-                        <strong><?= e($note['username']) ?></strong>
+                        <strong>
+                            <?= e($note['username']) ?>
+                        </strong>
+
                         <span>
-                            <?= e(date('d.m.Y H:i', strtotime($note['created_at']))) ?>
+                            <?= e(
+                                date(
+                                    'd.m.Y H:i',
+                                    strtotime($note['created_at'])
+                                )
+                            ) ?>
                         </span>
                     </div>
 
                     <p><?= nl2br(e($note['note'])) ?></p>
                 </article>
+
             <?php endforeach; ?>
+
         <?php endif; ?>
     </section>
 
